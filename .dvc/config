@@ -1,4 +1,4 @@
 [core]
     remote = myremote
 ['remote "myremote"']
-    url = s3://session-19-bucket
+    url = s3://session19-bucket
