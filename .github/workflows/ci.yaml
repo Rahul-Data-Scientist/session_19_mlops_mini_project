@@ -77,18 +77,18 @@ jobs:
           host: ${{secrets.EC2_HOST}}
           username: ${{secrets.EC2_USER}}
           key: ${{secrets.EC2_SSH_KEY}}
-        script: |
-          # Stop and remove existing container if it exists
-          docker stop my-app || true
-          docker rm my-app || true
-          
-          # Clean up unused Docker images and containers
-          docker system prune -af || true
+          script: |
+            # Stop and remove existing container if it exists
+            docker stop my-app || true
+            docker rm my-app || true
+            
+            # Clean up unused Docker images and containers
+            docker system prune -af || true
 
-          # Pull latest image
-          docker pull ${{secrets.DOCKER_HUB_USERNAME}}/emotion2:latest
+            # Pull latest image
+            docker pull ${{secrets.DOCKER_HUB_USERNAME}}/emotion2:latest
 
-          # Run in detached mode with auto-restart enabled
-          docker run -d --restart always -p 80:5000 --name my-app \
-            -e DAGSHUB_PAT=${{secrets.DAGSHUB_PAT}} \
-            ${{secrets.DOCKER_HUB_USERNAME}}/emotion2:latest
+            # Run in detached mode with auto-restart enabled
+            docker run -d --restart always -p 80:5000 --name my-app \
+              -e DAGSHUB_PAT=${{secrets.DAGSHUB_PAT}} \
+              ${{secrets.DOCKER_HUB_USERNAME}}/emotion2:latest
